@@ -16,6 +16,8 @@ object Calc {
       case BinaryOp("division", x1, x2) => (evaluate(x1) / evaluate(x2))
     }
   }
+  val x = 0
+  val res: Any = if (x > 0) {} else 1
 
   def simplify(e: Expr): Expr = {
     // сначала упрощаем подвыражения
