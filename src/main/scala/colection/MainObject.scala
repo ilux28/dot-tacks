@@ -1,17 +1,17 @@
 package colection
 
+import com.sun.tools.javac.code.TypeTag
+
+import scala.:+
 import scala.collection.mutable
 
 object MainObject extends App {
 
-  def groupByCharElems(charArrayRes: Array[Char]): String = charArrayRes.foldLeft(Map[String, String]()) { (acc, elem) => {
-    val elemStr = elem.toString
-    acc.get(elemStr) match {
-      case Some(value) => acc + (elemStr -> (value + elemStr))
-      case _ => acc + (elemStr ->  elemStr)
-    }
-  }
-  }.map { case (_, v) => v }
+  def groupByCharElems(charArrayRes: String) = charArrayRes.foldLeft(Map[Char, String]()) { (acc, elem) => {
+    acc.get(elem).fold(acc + (elem -> elem.toString))(value => {
+      acc + (elem -> (value :+ elem))
+    })
+  }}.map { case (_, v) => v }
     .toSeq
     .sortWith(_.length > _.length)
     .mkString("")
