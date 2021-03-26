@@ -4,10 +4,21 @@ import scala.collection.mutable
 
 object MainObject extends App {
 
+  def groupByCharElems(charArrayRes: Array[Char]): String = charArrayRes.foldLeft(Map[String, String]()) { (acc, elem) => {
+    val elemStr = elem.toString
+    acc.get(elemStr) match {
+      case Some(value) => acc + (elemStr -> (value + elemStr))
+      case _ => acc + (elemStr ->  elemStr)
+    }
+  }
+  }.map { case (_, v) => v }
+    .toSeq
+    .sortWith(_.length > _.length)
+    .mkString("")
+
   def groupByChar(str: String): String = {
 
     val charArray: Array[Char] = str.toCharArray
-
     val mpa: mutable.Map[String, String] = scala.collection.mutable.Map[String, String]()
 
     /** *

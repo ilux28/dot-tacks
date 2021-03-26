@@ -7,4 +7,9 @@ class MainObjectTest extends FunSuite {
     val str = "asdasdaaaweqbbbbasdasd"
     assert(MainObject.groupByChar(str) == "aaaaaaabbbbssssddddqew")
   }
+  test("MainObject.groupByCharElems test"){
+    val charArray = "asdasdaaaweqbbbbasdasd".toCharArray
+    assert(MainObject.groupByCharElems(charArray) == "aaaaaaabbbbssssddddqew")
+  }
+
 }
