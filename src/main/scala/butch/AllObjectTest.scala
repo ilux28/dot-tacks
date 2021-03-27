@@ -1,6 +1,5 @@
 package butch
 
-import scala.+:
 import scala.annotation.tailrec
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
@@ -71,27 +70,39 @@ object AllObjectTest extends App {
     case Nil => Nil
   }
 
-  /***
+  /** *
    * Замените серии одинаковых элементов списка на одиночный элемент
- */
+   */
   def replaceManyToOne(list: Seq[String]): List[String] =
     list.foldRight(List[String]()) { (right, acc) => {
       if (acc.isEmpty || acc.head != right) right :: acc else acc
-  }
-  }
-  /***
-     * Дан список. Замените серию одинаковых элементов на кортеж из элемента серии и длину серии,
+    }
+    }
+
+  /** *
+   * Дан список. Замените серию одинаковых элементов на кортеж из элемента серии и длину серии,
    * но если серия состоит из одного элемента, то оставьте элемент без замены на кортеж.
    */
-    def replaceManyToOneNumber(list: Seq[String]): Seq[Serializable] = {
-      list.foldLeft(Map[String, Int]()) { (acc, left) => {
-        acc.get(left).fold(acc + (left -> 1) ) { p: Int => {
-          acc + (left -> (p + 1))
-        }
-        }
+  def replaceManyToOneNumber(list: Seq[String]): Seq[Serializable] = {
+    list.foldLeft(Map[String, Int]()) { (acc, left) => {
+      acc.get(left).fold(acc + (left -> 1)) { p: Int => {
+        acc + (left -> (p + 1))
       }
-    }.toSeq.map(value => if (value._2 != 1) value else value._1)
+      }
     }
+    }.toSeq.map(value => if (value._2 != 1) value else value._1)
+  }
+
+  /** *
+   * Дан список. Замените серию одинаковых элементов на кортеж из элемента серии и длину серии
+   */
+  def replaceTupleOnTheListChar(list: List[Char]): List[(Int, Char)] = {
+    if (list.isEmpty) Nil
+    else {
+      val (matchList, otherList) = list.span(_ == list.head)
+      (matchList.length, matchList.head) :: replaceTupleOnTheListChar(otherList)
+    }
+  }
 
   val listStr = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
 
