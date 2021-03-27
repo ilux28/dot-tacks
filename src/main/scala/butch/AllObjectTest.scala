@@ -79,9 +79,22 @@ object AllObjectTest extends App {
       if (acc.isEmpty || acc.head != right) right :: acc else acc
   }
   }
+  /***
+     * Дан список. Замените серию одинаковых элементов на кортеж из элемента серии и длину серии,
+   * но если серия состоит из одного элемента, то оставьте элемент без замены на кортеж.
+   */
+    def replaceManyToOneNumber(list: Seq[String]): Seq[Serializable] = {
+      list.foldLeft(Map[String, Int]()) { (acc, left) => {
+        acc.get(left).fold(acc + (left -> 1) ) { p: Int => {
+          acc + (left -> (p + 1))
+        }
+        }
+      }
+    }.toSeq.map(value => if (value._2 != 1) value else value._1)
+    }
 
   val listStr = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
 
-  println("list.length: " + replaceManyToOne(listStr).mkString("; "))
+  println("list.length: " + replaceManyToOneNumber(listStr).mkString("; "))
 
 }
