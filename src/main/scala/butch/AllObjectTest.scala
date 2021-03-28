@@ -1,9 +1,6 @@
 package butch
 
 import scala.annotation.tailrec
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
 
 object AllObjectTest extends App {
   val list: Seq[Int] = List(45, -45, 67, 0, 54, 43, -35, -45, 0, 0, 0, 1, 0, 1, -1, 2, -1, 0, 0, -1, 9, -1)
@@ -64,9 +61,7 @@ object AllObjectTest extends App {
    * Разворачиваем k-й елемент в листе
    */
   def revertList(list: Seq[Int]): List[Int] = list match {
-    case h :: tail => {
-      revertList(tail) ::: List(h)
-    }
+    case h :: tail => revertList(tail) ::: List(h)
     case Nil => Nil
   }
 
@@ -102,6 +97,34 @@ object AllObjectTest extends App {
       val (matchList, otherList) = list.span(_ == list.head)
       (matchList.length, matchList.head) :: replaceTupleOnTheListChar(otherList)
     }
+  }
+
+  /** *
+   * Дан список chars. true - если количество "(" равно ")", false если ":-)"; "())(";
+   */
+  def balance1(chars: List[Char]): Boolean = {
+    val resInt = chars.foldLeft(0)((acc, char) => {
+      if (acc < 0) {
+        return false
+      } else if (char == '(') acc + 1 else if (char == ')') acc - 1 else acc
+    })
+    resInt % 2 == 0
+  }
+
+  def balance2(chars: List[Char]): Boolean = {
+    def count(i: Int, chars: List[Char]): Int = {
+      if (i < 0) i else {
+        chars match {
+          case head :: tail => {
+            val acc = if (head == '(') i + 1 else if (head == ')') i - 1 else i
+            count(acc, tail)
+          }
+          case _ => i
+        }
+      }
+    }
+
+    count(0, chars) % 2 == 0
   }
 
   val listStr = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
