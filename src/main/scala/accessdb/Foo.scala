@@ -11,7 +11,6 @@ trait FooRepository[F[_]] {
   def read(ids: List[FooId]): F[Set[Foo]]
 }
 
-
 object Foo {
   def readClosure[F[_] : Monad](repo: FooRepository[IO], ids: List[FooId]): IO[Set[Foo]] = {
     for {
