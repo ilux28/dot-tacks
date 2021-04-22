@@ -134,7 +134,7 @@ object AllObjectTest extends App {
    * @return
    */
   def countChars(someString: String): List[(Char, Int)] = {
-    val charList = someString.toCharArray.toList
+    val charList = someString.toLowerCase.toCharArray.toList
     def putToMap(elem: Char, map: Map[Char, Int]): Map[Char, Int] = map.get(elem).fold{
       map + (elem -> 1)
     }
@@ -148,7 +148,7 @@ object AllObjectTest extends App {
     def countCharsRec(charArray: List[Char], map: Map[Char, Int]): Map[Char, Int] = {
       charArray match {
         case head :: tail => {
-          val mapResult: Map[Char, Int] = putToMap(head.toLower, map)
+          val mapResult: Map[Char, Int] = putToMap(head, map)
           countCharsRec(tail, mapResult)
         }
         case head :: Nil => putToMap(head, map)
