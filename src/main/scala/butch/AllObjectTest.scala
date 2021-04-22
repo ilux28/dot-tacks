@@ -3,6 +3,7 @@ package butch
 import scala.annotation.tailrec
 
 object AllObjectTest extends App {
+
   val list: Seq[Int] = List(45, -45, 67, 0, 54, 43, -35, -45, 0, 0, 0, 1, 0, 1, -1, 2, -1, 0, 0, -1, 9, -1)
 
   /** *
@@ -127,8 +128,66 @@ object AllObjectTest extends App {
     count(0, chars) % 2 == 0
   }
 
+  /***
+   * Считаем количество одинаковых символов в строке
+   * @param someString
+   * @return
+   */
+  def countChars(someString: String): List[(Char, Int)] = {
+    val charList = someString.toCharArray.toList
+    def putToMap(elem: Char, map: Map[Char, Int]): Map[Char, Int] = map.get(elem).fold{
+      map + (elem -> 1)
+    }
+    {
+      value => {
+        map + (elem -> (value + 1))
+      }
+    }
+
+    @tailrec
+    def countCharsRec(charArray: List[Char], map: Map[Char, Int]): Map[Char, Int] = {
+      charArray match {
+        case head :: tail => {
+          val mapResult: Map[Char, Int] = putToMap(head.toLower, map)
+          countCharsRec(tail, mapResult)
+        }
+        case head :: Nil => putToMap(head, map)
+        case Nil => map
+      }
+    }
+
+    countCharsRec(charList, Map[Char, Int]()).toList.sortBy(_._2)
+  }
+
+  /***
+   * Разворачиваем самописный лист
+   * @param head
+   * @param tail
+   * @tparam A
+   */
+
+  case class MyList[A](head: A, tail: Option[MyList[A]]) {
+    // [1, 2, 3] => [3, 2, 1], O(n)
+    def reverse: MyList[A] =
+      tail match {
+        case Some(tail) => reverseA(tail, MyList(head, None))
+        case None => this
+      }
+  }
+
+  def reverseA[A](list: MyList[A], listA: MyList[A]): MyList[A] = {
+    list match {
+      case MyList(head, None) => MyList(head, Some(listA))
+      case MyList(head, Some(tail)) => {
+        reverseA(tail, MyList(head, Some(listA)))
+      }
+    }
+  }
+
+  val str = "Sst"
+
   val listStr = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
 
-  println("list.length: " + replaceManyToOneNumber(listStr).mkString("; "))
+  println("countChars " + countChars(str).mkString(", "))
 
 }

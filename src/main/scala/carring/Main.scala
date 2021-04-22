@@ -27,8 +27,8 @@ object Main {
    * @param email
    * @return
    */
-def sizeConstraint(pred: IntPairPred)(n: Int)(email: Email): Boolean =
-  pred(email.text.size, n)
+//def sizeConstraint(pred: IntPairPred)(n: Int)(email: Email): Boolean =
+//  pred(email.text.size, n)
 
 
 
