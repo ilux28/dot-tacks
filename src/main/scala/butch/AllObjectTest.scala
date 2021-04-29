@@ -113,6 +113,7 @@ object AllObjectTest extends App {
   }
 
   def balance2(chars: List[Char]): Boolean = {
+    @tailrec
     def count(i: Int, chars: List[Char]): Int = {
       if (i < 0) i else {
         chars match {
@@ -124,7 +125,6 @@ object AllObjectTest extends App {
         }
       }
     }
-
     count(0, chars) % 2 == 0
   }
 
