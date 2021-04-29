@@ -31,13 +31,6 @@ object TypeClassJson extends App {
     }
   }
 
-//  val customer = Customer("alice@mail.com", "Alice")
-//
-//  val order = Order(customer, List(
-//    Item(1, "first item"),
-//    Item(2, "second item"),
-//  ))
-
   val data = JsonObject(Map(
     "name" -> JsonString("Bob"),
     "items" -> JsonArray(
@@ -56,10 +49,6 @@ case class  JsonInteger(number: Int)
 case class  JsonArray(list: List[AnyRef])
 case class  JsonPrimitive(value: AnyVal)
 case class  JsonObject(map: Map[String, AnyRef])
-
-//case class Customer(email: String, name: String)
-//case class Item(id: Int, description: String)
-//case class Order(customer: Customer, items: List[Item])
 
 trait ConverterType[T] {
   def convert(value: T): String
