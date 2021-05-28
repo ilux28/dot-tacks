@@ -7,6 +7,14 @@ object Dependencies {
   private val http4sVersion = "0.21.4"
   private val slf4jVersion = "1.7.5"
   private val fs2Version = "2.2.2"
+  private val AkkaVersion = "2.6.14"
+
+  val streams = Seq("com.typesafe.akka" %% "akka-stream" % AkkaVersion)
+
+  val akka = Seq(
+    "com.typesafe.akka" %% "akka-actor" % AkkaVersion,
+    "com.typesafe.akka" %% "akka-testkit" % AkkaVersion % Test
+  )
 
   val fs2 = Seq(
     "co.fs2" %% "fs2-core" % fs2Version,
