@@ -31,7 +31,17 @@ object MainImplicit extends App {
     override def print(value: UserId): String = s"print: ${value.id}"
   }
 
+  val price = 500
+  val discount = 50
+
+  implicit class PriceOps(p: Price)  {
+    def -(n: Int): Int = p.price - n
+//    def -(p: Price)
+  }
+
+  println(Price(price) - discount)
   Printer[UserId].print(UserId(12))
+//  Printer[UserId].print(UserId(12))
 }
 
 case class Person(age: Int) {
@@ -41,3 +51,5 @@ case class Person(age: Int) {
 object Person {
   implicit def str2Person(param: String): Person = Person(param.toInt)
 }
+
+case class Price(price: Int)

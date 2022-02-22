@@ -1,6 +1,21 @@
 package systemtypes
 
 object FRestrictionPoly extends App {
+  /***
+   * Усовершенствованный вариант предыдущего
+   * @tparam A
+   */
+  class Apple {
+    override def toString: String = s"This is apple"
+  }
+  object Apple {
+    implicit object ApplePurchase extends Fruit[Apple] {
+      override def buy(a: Apple): List[Apple] = {
+        println("bought an apple")
+        List()
+      }
+    }
+  }
   implicit class PurchaseOps[A](fruit: A) {
     def buy(implicit fruitTypeClassInstance: Fruit[A]): List[A] =
       fruitTypeClassInstance.buy(fruit)
@@ -57,20 +72,8 @@ object FRestrictionPoly extends App {
 //   */
 //}
 
-/***
- * Усовершенствованный вариант предыдущего
- * @tparam A
- */
 trait Fruit[A] {
   def buy(a: A): List[A]
 }
 
-class Apple
-object Apple {
-  implicit object ApplePurchase extends Fruit[Apple] {
-    override def buy(a: Apple): List[Apple] = {
-      println("bought an apple")
-      List()
-    }
-  }
-}
+
