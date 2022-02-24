@@ -4,9 +4,9 @@ public class Add implements Expr {
     public final Expr left;
     public final Expr right;
 
-    public Add(Expr left, Expr rigth) {
+    public Add(Expr left, Expr right) {
         this.left = left;
-        this.right = rigth;
+        this.right = right;
     }
     public static Add add(Expr left, Expr right) {
         return new Add(left, right);
