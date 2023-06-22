@@ -1,4 +1,4 @@
-import Dependencies.{streams, akka, cats, circe, http4s, jackson, slf4j, tests}
+import Dependencies.{akka, cats, circe, http4s, jackson, scalaParallel, slf4j, streams, tests}
 
 enablePlugins(ScalaJSPlugin)
 
@@ -8,6 +8,6 @@ version := "0.1"
 
 scalaVersion := "2.13.5"
 
-libraryDependencies ++= Seq(cats, http4s, jackson, circe, tests, slf4j, akka, streams).flatten
+libraryDependencies ++= Seq(cats, http4s, jackson, circe, tests, slf4j, akka, streams, scalaParallel).flatten
 
 scalaJSUseMainModuleInitializer := true

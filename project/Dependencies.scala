@@ -8,12 +8,20 @@ object Dependencies {
   private val slf4jVersion = "1.7.5"
   private val fs2Version = "2.2.2"
   private val AkkaVersion = "2.6.14"
+  private val scalaParallelVersion = "1.0.4"
 
   val streams = Seq("com.typesafe.akka" %% "akka-stream" % AkkaVersion)
+
+
+
 
   val akka = Seq(
     "com.typesafe.akka" %% "akka-actor" % AkkaVersion,
     "com.typesafe.akka" %% "akka-testkit" % AkkaVersion % Test
+  )
+
+  val scalaParallel = Seq(
+    "org.scala-lang.modules" %% "scala-parallel-collections" % scalaParallelVersion
   )
 
   val fs2 = Seq(

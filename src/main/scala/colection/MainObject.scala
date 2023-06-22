@@ -1,7 +1,5 @@
 package colection
 
-import com.sun.tools.javac.code.TypeTag
-
 import scala.:+
 import scala.collection.mutable
 
